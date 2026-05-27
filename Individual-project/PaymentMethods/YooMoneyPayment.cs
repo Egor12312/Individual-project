@@ -1,20 +1,19 @@
-﻿namespace OnlineBookstore.PaymentMethods {
-  using System;
-  using OnlineBookstore.Interfaces;
+﻿using OnlineBookstore.Interfaces;
 
+namespace OnlineBookstore.PaymentMethods {
   public class YooMoneyPayment : IPaymentMethod {
-    private string yooMoneyEmail;
+    private readonly string yooMoneyEmail;
 
     public YooMoneyPayment(string email) {
-      this.yooMoneyEmail = email;
+      yooMoneyEmail = email;
     }
 
-    public string Pay(double amount) {
+    public void Pay(double amount) {
       string paymentMessage;
 
-      paymentMessage = "Paid " + amount + " rub. using YooMoney (account: " + this.yooMoneyEmail + ")";
+      paymentMessage = "Paid " + amount + " rub. using YooMoney (account: " + yooMoneyEmail + ")";
 
-      return paymentMessage;
+      return;
     }
   }
 }

@@ -1,33 +1,31 @@
 ﻿namespace OnlineBookstore.Models {
-  using System;
-
   public class Book {
-    private string bookTitle;
-    private string bookAuthor;
-    private double bookPrice;
+    private readonly string bookTitle;
+    private readonly string bookAuthor;
+    private readonly double bookPrice;
 
     public Book(string title, string author, double price) {
-      this.bookTitle = title;
-      this.bookAuthor = author;
-      this.bookPrice = price;
+      bookTitle = title;
+      bookAuthor = author;
+      bookPrice = price;
     }
 
     public string GetTitle() {
-      return this.bookTitle;
+      return bookTitle;
     }
 
     public string GetAuthor() {
-      return this.bookAuthor;
+      return bookAuthor;
     }
 
     public double GetPrice() {
-      return this.bookPrice;
+      return bookPrice;
     }
 
     public string GetDisplayInfo() {
       string info;
 
-      info = "\"" + this.bookTitle + "\" by " + this.bookAuthor + " — " + this.bookPrice + " rub.";
+      info = "\"" + bookTitle + "\" by " + bookAuthor + " — " + bookPrice + " rub.";
 
       return info;
     }

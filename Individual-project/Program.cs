@@ -1,13 +1,14 @@
-﻿namespace OnlineBookstore.Program {
-  using System;
-  using System.Collections.Generic;
-  using OnlineBookstore.Core;
-  using OnlineBookstore.Interfaces;
-  using OnlineBookstore.Models;
-  using OnlineBookstore.PaymentMethods;
+﻿using System;
+using System.Collections.Generic;
+using OnlineBookstore.Core;
+using OnlineBookstore.Interfaces;
+using OnlineBookstore.Models;
+using OnlineBookstore.PaymentMethods;
 
+namespace OnlineBookstore.Program {
   public class Program {
     public static void Main(string[] args) {
+      string checkoutResult;
       List<Book> bookCatalog = new List<Book>();
 
       Book firstBook = new Book("The Hobbit", "J.R.R. Tolkien", 450.0);
@@ -20,11 +21,6 @@
 
       Order currentOrder = new Order();
 
-      int userChoice;
-      int bookIndexForOrder;
-      int paymentMethodIndex;
-      string checkoutResult;
-
       bool isShopping = true;
 
       while (isShopping) {
@@ -36,21 +32,21 @@
         Console.Write("Your choice: ");
 
         string userInput = Console.ReadLine();
-        if (!int.TryParse(userInput, out userChoice)) {
+        if (!int.TryParse(userInput, out int userChoice)) {
           Console.WriteLine("Please enter a number.");
           continue;
         }
 
         if (userChoice == 1) {
           Console.WriteLine("\nAvailable books:");
-          for (int bookIndex = 0; bookIndex < bookCatalog.Count; bookIndex++) {
-            Console.Write((bookIndex + 1) + ". ");
+          for (int bookIndex = 0; bookIndex < bookCatalog.Count; ++bookIndex) {
+            Console.Write(bookIndex + 1 + ". ");
             Console.WriteLine(bookCatalog[bookIndex].GetDisplayInfo());
           }
         } else if (userChoice == 2) {
           Console.Write("Enter book number from catalog: ");
           string bookNumberInput = Console.ReadLine();
-          if (!int.TryParse(bookNumberInput, out bookIndexForOrder)) {
+          if (!int.TryParse(bookNumberInput, out int bookIndexForOrder)) {
             Console.WriteLine("Invalid number.");
             continue;
           }
@@ -71,7 +67,7 @@
           Console.Write("Enter 1 or 2: ");
 
           string paymentInput = Console.ReadLine();
-          if (!int.TryParse(paymentInput, out paymentMethodIndex)) {
+          if (!int.TryParse(paymentInput, out int paymentMethodIndex)) {
             Console.WriteLine("Invalid payment choice.");
             continue;
           }
