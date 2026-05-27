@@ -24,7 +24,7 @@
       return this.bookPrice;
     }
 
-    public string DisplayInfo() {
+    public string GetDisplayInfo() {
       string info;
 
       info = "\"" + this.bookTitle + "\" by " + this.bookAuthor + " — " + this.bookPrice + " rub.";
