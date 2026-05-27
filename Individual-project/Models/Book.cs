@@ -1,10 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace OnlineBookstore.Models {
+  using System;
 
-namespace Individual_project.Models {
-  internal class Book {
+  public class Book {
+    private string bookTitle;
+    private string bookAuthor;
+    private double bookPrice;
+
+    public Book(string title, string author, double price) {
+      this.bookTitle = title;
+      this.bookAuthor = author;
+      this.bookPrice = price;
+    }
+
+    public string GetTitle() {
+      return this.bookTitle;
+    }
+
+    public string GetAuthor() {
+      return this.bookAuthor;
+    }
+
+    public double GetPrice() {
+      return this.bookPrice;
+    }
+
+    public void DisplayInfo() {
+      Console.WriteLine("\"" + this.bookTitle + "\" by " + this.bookAuthor + " — " + this.bookPrice + " rub.");
+    }
   }
 }

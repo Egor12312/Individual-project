@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Individual_project.Interfaces {
-  internal class IPaymentMethod {
+﻿namespace OnlineBookstore.Interfaces {
+  public interface IPaymentMethod {
+    void Pay(double amount);
   }
 }
