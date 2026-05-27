@@ -5,19 +5,21 @@
   public class CreditCardPayment : IPaymentMethod {
     private string cardNumber;
     private string cardHolderName;
-    private int lastDigitsCount = 4;
+    private const int lastDigitsCount = 4;
 
     public CreditCardPayment(string number, string holderName) {
       this.cardNumber = number;
       this.cardHolderName = holderName;
     }
 
-    public void Pay(double amount) {
+    public string Pay(double amount) {
       string lastFourDigits;
+      string paymentMessage;
 
       lastFourDigits = this.cardNumber.Substring(this.cardNumber.Length - lastDigitsCount);
+      paymentMessage = "Paid " + amount + " rub. using Credit Card (" + this.cardHolderName + ", card: ****" + lastFourDigits + ")";
 
-      Console.WriteLine("Paid " + amount + " rub. using Credit Card (" + this.cardHolderName + ", card: ****" + lastFourDigits + ")");
+      return paymentMessage;
     }
   }
 }

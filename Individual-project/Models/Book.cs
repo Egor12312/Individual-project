@@ -24,8 +24,12 @@
       return this.bookPrice;
     }
 
-    public void DisplayInfo() {
-      Console.WriteLine("\"" + this.bookTitle + "\" by " + this.bookAuthor + " — " + this.bookPrice + " rub.");
+    public string DisplayInfo() {
+      string info;
+
+      info = "\"" + this.bookTitle + "\" by " + this.bookAuthor + " — " + this.bookPrice + " rub.";
+
+      return info;
     }
   }
 }
