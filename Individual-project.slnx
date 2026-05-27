@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/Элементы решения/">
+    <File Path=".editorconfig" />
+    <File Path="Settings.StyleCop.json" />
+  </Folder>
   <Project Path="Individual-project/Individual-project.csproj" />
 </Solution>
