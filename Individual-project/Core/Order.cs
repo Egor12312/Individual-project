@@ -33,6 +33,7 @@ namespace OnlineBookstore.Core {
 
     public string Checkout() {
       string resultMessage;
+      double finalAmount;
 
       if (orderedBooks.Count == 0) {
         resultMessage = "Your cart is empty. Add books before checkout.";
@@ -44,7 +45,7 @@ namespace OnlineBookstore.Core {
         return resultMessage;
       }
 
-      double finalAmount = CalculateTotal();
+      finalAmount = CalculateTotal();
       selectedPaymentMethod.Pay(finalAmount);
 
       resultMessage = "\nOrder total: " + finalAmount + " rub.\n" + "\nPurchase completed! Thank you for shopping.\n";

@@ -7,84 +7,115 @@ using OnlineBookstore.PaymentMethods;
 
 namespace OnlineBookstore.Program {
   public class Program {
-    public static void Main(string[] args) {
-      string checkoutResult;
-      List<Book> bookCatalog = new List<Book>();
+    public static void Main() {
+      int firstBookPrice, secondBookPrice, thirdBookPrice, menuOptionShowCatalog, menuOptionAddBook;
+      int menuOptionCheckout, menuOptionExit, paymentMethodCreditCard, paymentMethodYooMoney;
+      int catalogStartIndex, numberZero, cardNumberLength;
+      string checkoutResult, optionsRange, errorMessage, email, holder, cardNum, paymentInput;
+      List<Book> bookCatalog;
+      Book firstBook;
+      Book secondBook;
+      Book thirdBook;
+      Order currentOrder;
+      bool isShopping;
+      string userInput, displayNumberText, bookNumberInput;
+      int displayNumber, realBookIndex;
 
-      Book firstBook = new Book("The Hobbit", "J.R.R. Tolkien", 450.0);
-      Book secondBook = new Book("1984", "George Orwell", 320.0);
-      Book thirdBook = new Book("Clean Code", "Robert Martin", 890.0);
+      firstBookPrice = 450;
+      secondBookPrice = 320;
+      thirdBookPrice = 890;
+      menuOptionShowCatalog = 1;
+      menuOptionAddBook = 2;
+      menuOptionCheckout = 3;
+      menuOptionExit = 4;
+      paymentMethodCreditCard = 1;
+      paymentMethodYooMoney = 2;
+      catalogStartIndex = 1;
+      numberZero = 0;
+      cardNumberLength = 16;
+
+      bookCatalog = new List<Book>();
+      firstBook = new Book("The Hobbit", "J.R.R. Tolkien", firstBookPrice);
+      secondBook = new Book("1984", "George Orwell", secondBookPrice);
+      thirdBook = new Book("Clean Code", "Robert Martin", thirdBookPrice);
 
       bookCatalog.Add(firstBook);
       bookCatalog.Add(secondBook);
       bookCatalog.Add(thirdBook);
 
-      Order currentOrder = new Order();
-
-      bool isShopping = true;
+      currentOrder = new Order();
+      isShopping = true;
 
       while (isShopping) {
         Console.WriteLine("\n===== ONLINE BOOKSTORE =====");
-        Console.WriteLine("1 - Show catalog");
-        Console.WriteLine("2 - Add book to cart");
-        Console.WriteLine("3 - Show cart and checkout");
-        Console.WriteLine("4 - Exit");
+        Console.WriteLine(menuOptionShowCatalog + " - Show catalog");
+        Console.WriteLine(menuOptionAddBook + " - Add book to cart");
+        Console.WriteLine(menuOptionCheckout + " - Show cart and checkout");
+        Console.WriteLine(menuOptionExit + " - Exit");
         Console.Write("Your choice: ");
 
-        string userInput = Console.ReadLine();
+        userInput = Console.ReadLine();
         if (!int.TryParse(userInput, out int userChoice)) {
           Console.WriteLine("Please enter a number.");
           continue;
         }
 
-        if (userChoice == 1) {
+        if (userChoice == menuOptionShowCatalog) {
           Console.WriteLine("\nAvailable books:");
           for (int bookIndex = 0; bookIndex < bookCatalog.Count; ++bookIndex) {
-            Console.Write(bookIndex + 1 + ". ");
+            displayNumber = bookIndex + catalogStartIndex;
+            displayNumberText = displayNumber + ". ";
+            Console.Write(displayNumberText);
             Console.WriteLine(bookCatalog[bookIndex].GetDisplayInfo());
           }
-        } else if (userChoice == 2) {
+        } else if (userChoice == menuOptionAddBook) {
           Console.Write("Enter book number from catalog: ");
-          string bookNumberInput = Console.ReadLine();
+
+          bookNumberInput = Console.ReadLine();
           if (!int.TryParse(bookNumberInput, out int bookIndexForOrder)) {
             Console.WriteLine("Invalid number.");
             continue;
           }
 
-          int realBookIndex = bookIndexForOrder - 1;
+          realBookIndex = bookIndexForOrder - catalogStartIndex;
 
-          if (realBookIndex >= 0 && realBookIndex < bookCatalog.Count) {
-            Book selectedBook = bookCatalog[realBookIndex];
+          if (realBookIndex >= numberZero && realBookIndex < bookCatalog.Count) {
+            Book selectedBook;
+            selectedBook = bookCatalog[realBookIndex];
             currentOrder.AddBook(selectedBook);
             Console.WriteLine("Added \"" + selectedBook.GetTitle() + "\" to cart.");
           } else {
             Console.WriteLine("Book not found.");
           }
-        } else if (userChoice == 3) {
+        } else if (userChoice == menuOptionCheckout) {
           Console.WriteLine("\nSelect payment method:");
-          Console.WriteLine("1 - Credit Card");
-          Console.WriteLine("2 - YooMoney");
+          Console.WriteLine(paymentMethodCreditCard + " - Credit Card");
+          Console.WriteLine(paymentMethodYooMoney + " - YooMoney");
           Console.Write("Enter 1 or 2: ");
 
-          string paymentInput = Console.ReadLine();
+          paymentInput = Console.ReadLine();
           if (!int.TryParse(paymentInput, out int paymentMethodIndex)) {
             Console.WriteLine("Invalid payment choice.");
             continue;
           }
 
-          if (paymentMethodIndex == 1) {
-            Console.Write("Enter card number (16 digits): ");
-            string cardNum = Console.ReadLine();
+          if (paymentMethodIndex == paymentMethodCreditCard) {
+            IPaymentMethod creditMethod;
+
+            Console.Write("Enter card number (" + cardNumberLength + " digits): ");
+            cardNum = Console.ReadLine();
             Console.Write("Enter cardholder name: ");
-            string holder = Console.ReadLine();
+            holder = Console.ReadLine();
 
-            IPaymentMethod creditMethod = new CreditCardPayment(cardNum, holder);
+            creditMethod = new CreditCardPayment(cardNum, holder);
             currentOrder.SetPaymentMethod(creditMethod);
-          } else if (paymentMethodIndex == 2) {
-            Console.Write("Enter your YooMoney email: ");
-            string email = Console.ReadLine();
+          } else if (paymentMethodIndex == paymentMethodYooMoney) {
+            IPaymentMethod yooMethod;
 
-            IPaymentMethod yooMethod = new YooMoneyPayment(email);
+            Console.Write("Enter your YooMoney email: ");
+            email = Console.ReadLine();
+
+            yooMethod = new YooMoneyPayment(email);
             currentOrder.SetPaymentMethod(yooMethod);
           } else {
             Console.WriteLine("Wrong payment method.");
@@ -93,11 +124,13 @@ namespace OnlineBookstore.Program {
 
           checkoutResult = currentOrder.Checkout();
           Console.WriteLine(checkoutResult);
-        } else if (userChoice == 4) {
+        } else if (userChoice == menuOptionExit) {
           isShopping = false;
           Console.WriteLine("Goodbye!");
         } else {
-          Console.WriteLine("Incorrect option. Choose 1-4.");
+          optionsRange = menuOptionShowCatalog + "-" + menuOptionExit;
+          errorMessage = "Incorrect option. Choose " + optionsRange + ".";
+          Console.WriteLine(errorMessage);
         }
       }
     }
