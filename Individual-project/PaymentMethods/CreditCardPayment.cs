@@ -18,7 +18,6 @@ namespace OnlineBookstore.PaymentMethods {
       lastDigitsCount = 4;
       lastFourDigits = cardNumber.Substring(cardNumber.Length - lastDigitsCount);
       paymentMessage = "Paid " + amount + " rub. using Credit Card (" + cardHolderName + ", card: ****" + lastFourDigits + ")";
-
       return;
     }
   }

@@ -26,7 +26,6 @@
       string info;
 
       info = "\"" + bookTitle + "\" by " + bookAuthor + " — " + bookPrice + " rub.";
-
       return info;
     }
   }

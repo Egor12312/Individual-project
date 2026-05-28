@@ -62,6 +62,7 @@ namespace OnlineBookstore.Program {
 
         if (userChoice == menuOptionShowCatalog) {
           Console.WriteLine("\nAvailable books:");
+
           for (int bookIndex = 0; bookIndex < bookCatalog.Count; ++bookIndex) {
             displayNumber = bookIndex + catalogStartIndex;
             displayNumberText = displayNumber + ". ";

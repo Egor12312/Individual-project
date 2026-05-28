@@ -12,7 +12,6 @@ namespace OnlineBookstore.PaymentMethods {
       string paymentMessage;
 
       paymentMessage = "Paid " + amount + " rub. using YooMoney (account: " + yooMoneyEmail + ")";
-
       return;
     }
   }
